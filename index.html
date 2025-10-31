@@ -29,7 +29,7 @@
         </nav>
     </header>
 
-    <header class="hero">
+    <header class="hero" id="about">
         <div class="container">
             <p>“O segredo para emagrecer é comer menos”</p>
             <h1>Uma das maiores MENTIRAS que já lhe contaram.</h1>
@@ -46,7 +46,7 @@
         </div>
     </header>
 
-    <section class="about" id="about">
+    <section class="about">
         <div class="container about-flex">
             <div class="about-text">
                 <h3>O QUE VOCÊ VAI ENCONTRAR:</h3>
@@ -113,6 +113,87 @@
             <p>&copy; 2025 Viva mais, Viva melhor. Todos os direitos reservados.</p>
         </div>
     </footer>
-</body>
 
+    <!-- Scroll to top button -->
+    <button class="scroll-to-top-btn" id="scrollToTopBtn" title="Voltar ao topo">^</button>
+
+    <script>
+        // Smooth scroll for same-page nav links while accounting for fixed header height
+        (function () {
+            const header = document.querySelector('.site-header');
+            function getHeaderHeight() {
+                return header ? header.offsetHeight : 0;
+            }
+
+            // expose header height to CSS (optional, for scroll-margin use)
+            function setCssHeaderVar() {
+                document.documentElement.style.setProperty('--site-header-height', getHeaderHeight() + 'px');
+            }
+            setCssHeaderVar();
+            window.addEventListener('resize', setCssHeaderVar);
+
+            document.querySelectorAll('.site-header .nav a[href^="#"]').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href').slice(1);
+                    const target = document.getElementById(targetId);
+                    if (!target) return; // no target found — default behavior
+                    e.preventDefault();
+                    const headerHeight = getHeaderHeight();
+                    const gap = 10; // optional extra spacing
+                    const top = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - gap;
+                    smoothScrollTo(top);
+                    // update URL hash without jumping
+                    history.pushState(null, '', '#' + targetId);
+                });
+            });
+
+            // Scroll to top button functionality
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            let isVisible = false;
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 100 && !isVisible) {
+                    scrollToTopBtn.classList.remove('hide');
+                    scrollToTopBtn.classList.add('show');
+                    isVisible = true;
+                } else if (window.pageYOffset <= 100 && isVisible) {
+                    scrollToTopBtn.classList.remove('show');
+                    scrollToTopBtn.classList.add('hide');
+                    isVisible = false;
+                }
+            });
+            scrollToTopBtn.addEventListener('click', function() {
+                smoothScrollToTop();
+            });
+
+            function smoothScrollTo(targetPosition) {
+                const start = window.pageYOffset;
+                const distance = targetPosition - start;
+                const duration = 800; // duration in ms
+                const startTime = performance.now();
+
+                function easeInOutCubic(t) {
+                    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+                }
+
+                function animate(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const easedProgress = easeInOutCubic(progress);
+                    const scrollTo = start + distance * easedProgress;
+                    window.scrollTo(0, scrollTo);
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    }
+                }
+
+                requestAnimationFrame(animate);
+            }
+
+            function smoothScrollToTop() {
+                smoothScrollTo(0);
+            }
+        })();
+    </script>
+</body>
 </html>
