@@ -117,7 +117,7 @@ section.contact {
     display: flex;
     gap: 18px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     padding: 12px 20px;
 }
 
@@ -171,12 +171,42 @@ section.contact {
     color: #FFA726;
 }
 
+/* Language selector styling */
+.language-selector {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    color: #fff;
+}
+
+.site-header .nav .language-selector a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color .2s, color .2s;
+}
+
+.language-selector a:hover,
+.language-selector a:focus {
+    background: rgba(255,255,255,0.1);
+    outline: none;
+}
+
 /* Small screens: stack nav links */
 @media (max-width: 600px) {
     .site-header .nav {
         flex-wrap: wrap;
         gap: 10px;
         padding: 10px;
+    }
+
+    .language-selector {
+        order: -1;
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 10px;
     }
 
     img {

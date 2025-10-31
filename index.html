@@ -26,6 +26,9 @@
             <a href="#cv">Currículo</a>
             <a href="#work">Trabalhos</a>
             <a href="#contato">Contato</a>
+            <div class="language-selector">
+                <a href="#" id="lang-en">English</a> | <a href="#" id="lang-pt">Português</a>
+            </div>
         </nav>
     </header>
 
@@ -193,6 +196,151 @@
             function smoothScrollToTop() {
                 smoothScrollTo(0);
             }
+
+            // Language switching functionality
+            const translations = {
+                pt: {
+                    title: "Bem vindo ao meu portifólio!",
+                    nav: ["Sobre mim", "Currículo", "Trabalhos", "Contato"],
+                    heroQuote: "“O segredo para emagrecer é comer menos”",
+                    heroTitle: "Uma das maiores MENTIRAS que já lhe contaram.",
+                    heroText: "Estudos comprovam que comer em QUANTIDADE não é o problema, mas sim uma alta taxa CALÓRICA pode",
+                    thinking: "Pensando nisso...",
+                    bookTitle: "Criamos o livro COMA MAIS E PESE MENOS!",
+                    bookDesc: "Com mais de 50 receitas para ajudar você a comer bem sem afetar o seu peso.",
+                    whatYouFind: "O QUE VOCÊ VAI ENCONTRAR:",
+                    features: [
+                        "50 receitas com baixo valor calórico e alto volume",
+                        "Divididas em Café da Manhã, Almoço/Jantar, Lanches e Sobremesas",
+                        "Receitas simples e rápidas",
+                        "Ingredientes acessíveis",
+                        "PDF para acessar onde quiser"
+                    ],
+                    notAll: "E ISSO NÃO É TUDO!",
+                    moreFeatures: [
+                        "O material é simples de entender",
+                        "As receitas acompanham os ingredientes necessários, além de um modo de preparo e tempo médio de cozinha.",
+                        "TODAS as receitas possuem uma baixa taxa calórica, por utilizar ingredientes naturais e nutritivos.",
+                        "Assim que o pagamento for confirmado você terá acesso IMEDIATAMENTE, podendo baixar o livro pela página de assinantes."
+                    ],
+                    cvTitle: "Currículo",
+                    cvText: "Resumo profissional e formação — adicione seu conteúdo aqui.",
+                    workTitle: "Trabalhos Notáveis",
+                    workText: "Projetos, cases e links — adicione seu conteúdo aqui.",
+                    liked: "GOSTOU?",
+                    buyText: "Clique no botão de COMPRAR AGORA e vá direto para a página do checkout!",
+                    buyBtn: "COMPRAR AGORA",
+                    journey: "Compre agora e comece a sua jornada!",
+                    footer: "&copy; 2025 Viva mais, Viva melhor. Todos os direitos reservados.",
+                    scrollTitle: "Voltar ao topo"
+                },
+                en: {
+                    title: "Welcome to my portfolio!",
+                    nav: ["About me", "Resume", "Works", "Contact"],
+                    heroQuote: "\"The secret to losing weight is to eat less\"",
+                    heroTitle: "One of the biggest LIES you've ever been told.",
+                    heroText: "Studies prove that eating in QUANTITY is not the problem, but rather a high CALORIC rate can",
+                    thinking: "Thinking about that...",
+                    bookTitle: "We created the book EAT MORE AND WEIGH LESS!",
+                    bookDesc: "With more than 50 recipes to help you eat well without affecting your weight.",
+                    whatYouFind: "WHAT YOU WILL FIND:",
+                    features: [
+                        "50 low-calorie, high-volume recipes",
+                        "Divided into Breakfast, Lunch/Dinner, Snacks and Desserts",
+                        "Simple and quick recipes",
+                        "Accessible ingredients",
+                        "PDF to access wherever you want"
+                    ],
+                    notAll: "AND THAT'S NOT ALL!",
+                    moreFeatures: [
+                        "The material is easy to understand",
+                        "The recipes come with the necessary ingredients, plus a preparation method and average cooking time.",
+                        "ALL recipes have a low caloric rate, using natural and nutritious ingredients.",
+                        "As soon as payment is confirmed you will have IMMEDIATE access, being able to download the book from the subscribers page."
+                    ],
+                    cvTitle: "Resume",
+                    cvText: "Professional summary and education — add your content here.",
+                    workTitle: "Notable Works",
+                    workText: "Projects, cases and links — add your content here.",
+                    liked: "DID YOU LIKE IT?",
+                    buyText: "Click the BUY NOW button and go straight to the checkout page!",
+                    buyBtn: "BUY NOW",
+                    journey: "Buy now and start your journey!",
+                    footer: "&copy; 2025 Live more, Live better. All rights reserved.",
+                    scrollTitle: "Back to top"
+                }
+            };
+
+            let currentLang = 'pt';
+
+            function switchLanguage(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+                document.title = translations[lang].title;
+
+                // Update navigation
+                const navLinks = document.querySelectorAll('.site-header .nav a[href^="#"]');
+                navLinks.forEach((link, index) => {
+                    link.textContent = translations[lang].nav[index];
+                });
+
+                // Update hero section
+                document.querySelector('.hero p').textContent = translations[lang].heroQuote;
+                document.querySelector('.hero h1').textContent = translations[lang].heroTitle;
+                document.querySelector('.hero .container p').textContent = translations[lang].heroText;
+                document.querySelectorAll('.hero div h2')[0].textContent = translations[lang].thinking;
+                document.querySelectorAll('.hero div h2')[1].textContent = translations[lang].bookTitle;
+                document.querySelectorAll('.hero div p')[1].textContent = translations[lang].bookDesc;
+
+                // Update about section
+                document.querySelector('.about h3').textContent = translations[lang].whatYouFind;
+                const featuresList = document.querySelectorAll('.about ul li');
+                featuresList.forEach((li, index) => {
+                    li.textContent = translations[lang].features[index];
+                });
+                document.querySelectorAll('.about h3')[1].textContent = translations[lang].notAll;
+                const moreFeaturesList = document.querySelectorAll('.about ul1 li');
+                moreFeaturesList.forEach((li, index) => {
+                    li.textContent = translations[lang].moreFeatures[index];
+                });
+
+                // Update CV section
+                document.querySelector('#cv h2').textContent = translations[lang].cvTitle;
+                document.querySelector('#cv p').textContent = translations[lang].cvText;
+
+                // Update work section
+                document.querySelector('#work h2').textContent = translations[lang].workTitle;
+                document.querySelector('#work p').textContent = translations[lang].workText;
+
+                // Update contact section
+                document.querySelector('.contact h1').textContent = translations[lang].liked;
+                document.querySelector('.contact .container p').textContent = translations[lang].buyText;
+                document.querySelector('.contact .btn').textContent = translations[lang].buyBtn;
+                document.querySelectorAll('.contact div p')[1].textContent = translations[lang].journey;
+
+                // Update footer
+                document.querySelector('.footer p').innerHTML = translations[lang].footer;
+
+                // Update scroll button title
+                document.getElementById('scrollToTopBtn').title = translations[lang].scrollTitle;
+
+                // Save language preference
+                localStorage.setItem('language', lang);
+            }
+
+            // Load saved language on page load
+            const savedLang = localStorage.getItem('language') || 'pt';
+            switchLanguage(savedLang);
+
+            // Language selector event listeners
+            document.getElementById('lang-en').addEventListener('click', function(e) {
+                e.preventDefault();
+                switchLanguage('en');
+            });
+            document.getElementById('lang-pt').addEventListener('click', function(e) {
+                e.preventDefault();
+                switchLanguage('pt');
+            });
         })();
     </script>
 </body>
