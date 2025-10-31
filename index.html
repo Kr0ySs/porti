@@ -14,14 +14,17 @@
     <script> function gtag_report_conversion(url) { var callback = function () { if (typeof (url) != 'undefined') { window.location = url; } }; gtag('event', 'conversion', { 'send_to': 'AW-16921911701/r3nLCIq4sLcaEJXD_4Q_', 'value': 1.0, 'currency': 'BRL', 'transaction_id': '', 'event_callback': callback }); return false; } </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bem vindo ao meu portifólio!</title>
+    <title>Portifolio</title>
     <link rel="stylesheet" href="styles/styles.css" />
 </head>
 
 <body>
-    <!-- New fixed header / navigation -->
+    <!-- Header (kept) -->
     <header class="site-header">
         <nav class="nav container">
+            <div class="language-selector" aria-label="Language selector">
+            </div>
+
             <a href="#about">Sobre mim</a>
             <a href="#cv">Currículo</a>
             <a href="#work">Trabalhos</a>
@@ -29,170 +32,69 @@
         </nav>
     </header>
 
-    <header class="hero" id="about">
-        <div class="container">
-            <p>“O segredo para emagrecer é comer menos”</p>
-            <h1>Uma das maiores MENTIRAS que já lhe contaram.</h1>
-            <p>
-                Estudos comprovam que comer em QUANTIDADE não é o problema, mas sim uma alta taxa CALÓRICA pode
-            </p>
-        </div>
-        <div>
-            <h2>Pensando nisso...</h2>
-        </div>
-        <div>
-            <h2>Criamos o livro COMA MAIS E PESE MENOS!</h2>
-            <p>Com mais de 50 receitas para ajudar você a comer bem sem afetar o seu peso.</p>
-        </div>
-    </header>
+    <!-- Content placeholders (texts removed, image erased) -->
+    <main>
+        <section class="hero container" aria-hidden="true">
+            <div class="hero-content" role="region" aria-label="Hero content"></div>
+        </section>
 
-    <section class="about">
-        <div class="container about-flex">
-            <div class="about-text">
-                <h3>O QUE VOCÊ VAI ENCONTRAR:</h3>
-                <ul>
-                    <li>50 receitas com baixo valor calórico e alto volume</li>
-                    <li>Divididas em Café da Manhã, Almoço/Jantar, Lanches e Sobremesas</li>
-                    <li>Receitas simples e rápidas</li>
-                    <li>Ingredientes acessíveis</li>
-                    <li>PDF para acessar onde quiser</li>
-                </ul>
-            </div>
-        </div>
-        <div>
-            <img src="img/capa.jpg" alt="Capa do livro">
-        </div>
-        <div class="container about-flex">
-            <div class="about-text">
-                <h3>E ISSO NÃO É TUDO!</h3>
-                <div>
-                    <ul1>
-                        <li>O material é simples de entender</li>
-                        <li>As receitas acompanham os ingredientes necessários, além de um modo de preparo e tempo médio
-                            de cozinha.</li>
-                        <li>TODAS as receitas possuem uma baixa taxa calórica, por utilizar ingredientes naturais e
-                            nutritivos.</li>
-                        <li>Assim que o pagamento for confirmado você terá acesso IMEDIATAMENTE, podendo baixar o livro
-                            pela página de assinantes.</li>
-                    </ul1>
-                </div>
-            </div>
+        <section id="about" aria-label="About section" class="about"></section>
+        <section id="cv" aria-label="CV section" class="cv"></section>
+        <section id="work" aria-label="Work section" class="work"></section>
+        <section id="contato" aria-label="Contact section" class="contact"></section>
+    </main>
 
-    </section>
-
-    <!-- New CV section (placeholder) -->
-    <section id="cv" class="cv">
-        <div class="container">
-            <h2>Currículo</h2>
-            <p>Resumo profissional e formação — adicione seu conteúdo aqui.</p>
-        </div>
-    </section>
-
-    <!-- New Notable Work / Portfolio section (placeholder) -->
-    <section id="work" class="work">
-        <div class="container">
-            <h2>Trabalhos Notáveis</h2>
-            <p>Projetos, cases e links — adicione seu conteúdo aqui.</p>
-        </div>
-    </section>
-
-    <section class="contact" id="contato">
-        <div class="container">
-            <h1>GOSTOU?</h1>
-            <p>Clique no botão de COMPRAR AGORA e vá direto para a página do checkout!</p>
-            <a onclick="return gtag_report_conversion('https://pay.kiwify.com.br/DKLytib');"
-                href="https://pay.kiwify.com.br/DKLytib" class="btn">COMPRAR AGORA</a>
-        </div>
-        <div>
-            <p>Compre agora e comece a sua jornada!</p>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Viva mais, Viva melhor. Todos os direitos reservados.</p>
-        </div>
-    </footer>
+    <footer class="footer" aria-label="Footer"></footer>
 
     <!-- Scroll to top button -->
     <button class="scroll-to-top-btn" id="scrollToTopBtn" title="Voltar ao topo">^</button>
 
     <script>
-        // Smooth scroll for same-page nav links while accounting for fixed header height
         (function () {
             const header = document.querySelector('.site-header');
             function getHeaderHeight() {
                 return header ? header.offsetHeight : 0;
             }
 
-            // expose header height to CSS (optional, for scroll-margin use)
+            // Smooth scroll for header nav links (accounts for fixed header)
+            document.querySelectorAll('.site-header .nav a[href^="#"]').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href').slice(1);
+                    const target = document.getElementById(targetId);
+                    if (!target) return;
+                    e.preventDefault();
+                    const headerHeight = getHeaderHeight();
+                    const gap = 12;
+                    const top = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - gap;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                    history.pushState(null, '', '#' + targetId);
+                });
+            });
+
+            // Scroll-to-top button
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            function updateScrollBtn() {
+                if (window.pageYOffset > 150) {
+                    scrollToTopBtn.classList.add('show');
+                    scrollToTopBtn.classList.remove('hide');
+                } else {
+                    scrollToTopBtn.classList.remove('show');
+                    scrollToTopBtn.classList.add('hide');
+                }
+            }
+            window.addEventListener('scroll', updateScrollBtn);
+            updateScrollBtn();
+
+            scrollToTopBtn.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // expose header height to CSS if needed
             function setCssHeaderVar() {
                 document.documentElement.style.setProperty('--site-header-height', getHeaderHeight() + 'px');
             }
             setCssHeaderVar();
             window.addEventListener('resize', setCssHeaderVar);
-
-            document.querySelectorAll('.site-header .nav a[href^="#"]').forEach(link => {
-                link.addEventListener('click', function (e) {
-                    const targetId = this.getAttribute('href').slice(1);
-                    const target = document.getElementById(targetId);
-                    if (!target) return; // no target found — default behavior
-                    e.preventDefault();
-                    const headerHeight = getHeaderHeight();
-                    const gap = 10; // optional extra spacing
-                    const top = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - gap;
-                    smoothScrollTo(top);
-                    // update URL hash without jumping
-                    history.pushState(null, '', '#' + targetId);
-                });
-            });
-
-            // Scroll to top button functionality
-            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-            let isVisible = false;
-            window.addEventListener('scroll', function() {
-                if (window.pageYOffset > 100 && !isVisible) {
-                    scrollToTopBtn.classList.remove('hide');
-                    scrollToTopBtn.classList.add('show');
-                    isVisible = true;
-                } else if (window.pageYOffset <= 100 && isVisible) {
-                    scrollToTopBtn.classList.remove('show');
-                    scrollToTopBtn.classList.add('hide');
-                    isVisible = false;
-                }
-            });
-            scrollToTopBtn.addEventListener('click', function() {
-                smoothScrollToTop();
-            });
-
-            function smoothScrollTo(targetPosition) {
-                const start = window.pageYOffset;
-                const distance = targetPosition - start;
-                const duration = 800; // duration in ms
-                const startTime = performance.now();
-
-                function easeInOutCubic(t) {
-                    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-                }
-
-                function animate(currentTime) {
-                    const elapsed = currentTime - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    const easedProgress = easeInOutCubic(progress);
-                    const scrollTo = start + distance * easedProgress;
-                    window.scrollTo(0, scrollTo);
-
-                    if (progress < 1) {
-                        requestAnimationFrame(animate);
-                    }
-                }
-
-                requestAnimationFrame(animate);
-            }
-
-            function smoothScrollToTop() {
-                smoothScrollTo(0);
-            }
         })();
     </script>
 </body>
