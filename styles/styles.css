@@ -1,116 +1,47 @@
-/* Reset e base */
+/* Minimal styles only for currently used markup (header, nav, sections, footer, language selector, scroll-to-top) */
+
+/* Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Smooth scrolling for programmatic scrolls */
 html {
-    scroll-behavior: smooth; /* smooth scrolling for anchor links */
+    scroll-behavior: smooth;
 }
 
+:root {
+    --site-header-height: 72px;
+}
+
+/* Page base */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #FFA726;
+    background-color: #000000; /* absolute black */
     color: #fff;
     line-height: 1.5;
-    padding-top: 72px; /* reserve space for fixed header */
+    padding-top: var(--site-header-height); /* space for fixed header */
 }
 
+/* Container used by header/nav and main sections */
 .container {
     width: 90%;
     max-width: 1200px;
-    margin: auto;
-    padding: 40px 20px;
+    margin: 0 auto;
+    padding: 24px 20px;
 }
 
-h1 {
-    font-size: 2.5rem;
-}
-
-h1,
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-h3 {
-    text-align: center;
-    font-size: 2rem;
-}
-
-p {
-    text-align: center;
-    font-size: 1.3rem;
-}
-
-ul {
-    text-align: center;
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-}
-
-ul1 {
-    text-align: center;
-    font-size: 1.1rem;
-}
-
-li {
-    text-align: left;
-}
-
-img {
-    width: 23%;
-}
-
-.btn {
-    display: inline-block;
-    background-color: #6c4101;
-    color: #fff;
-    padding: 10px 20px;
-    margin-top: 20px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.btn:hover {
-    background-color: #fff;
-    color: #FFA726
-}
-
-.hero {
-    background-color: #0c0c0b;
-    padding: 80px 0;
-    text-align: center;
-}
-
-section {
-    padding: 60px 0;
-    text-align: center;
-    scroll-margin-top: 82px; /* ensure anchors appear below fixed header */
-}
-
-section.contact {
-    background-color: #ee7e22;
-}
-
-.footer {
-    background-color: #c15700;
-    padding: 30px 0;
-    text-align: center;
-}
-
-/* Fixed site header */
+/* Fixed header / nav (dark grey) */
 .site-header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(12, 12, 11, 0.95);
+    background: #1a1a1a; /* really dark grey */
     z-index: 9999;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 
 .site-header .nav {
@@ -121,22 +52,73 @@ section.contact {
     padding: 12px 20px;
 }
 
+/* Links in header */
 .site-header .nav a {
     color: #fff;
     text-decoration: none;
     padding: 8px 12px;
     border-radius: 6px;
     font-weight: 600;
-    transition: background-color .2s, color .2s;
+    transition: background-color .18s, color .18s;
 }
 
 .site-header .nav a:hover,
 .site-header .nav a:focus {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.08);
     outline: none;
 }
 
-/* Scroll to top button */
+/* Sections (placeholders) */
+section {
+    padding: 60px 0;
+    text-align: center;
+    scroll-margin-top: calc(var(--site-header-height) + 12px); /* ensures anchor targets are visible below header */
+}
+
+/* Footer: white background with dark text */
+.footer {
+    background: #ffffff; /* white */
+    color: #000;         /* dark text for contrast */
+    padding: 30px 0;
+    text-align: center;
+}
+
+/* Language selector */
+.language-selector {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    color: #fff;
+}
+
+.language-selector .lang-btn {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.language-selector img {
+    width: 24px;
+    height: auto;
+    display: block;
+    border-radius: 2px;
+}
+
+.language-selector .lang-btn:focus {
+    outline: 2px solid rgba(255,255,255,0.25);
+    border-radius: 4px;
+}
+
+.lang-sep {
+    color: rgba(255,255,255,0.6);
+    padding: 0 6px;
+    user-select: none;
+}
+
+/* Scroll-to-top button */
 .scroll-to-top-btn {
     position: fixed;
     bottom: 20px;
@@ -148,22 +130,25 @@ section.contact {
     border: none;
     border-radius: 50%;
     font-size: 24px;
+    line-height: 50px;
+    text-align: center;
     font-weight: bold;
     cursor: pointer;
-    z-index: 1000;
+    z-index: 10000;
     opacity: 0;
-    transform: translateX(100px);
-    transition: opacity 0.5s ease, transform 0.5s ease, background-color 0.3s;
+    transform: translateY(12px);
+    transition: opacity 0.28s ease, transform 0.28s ease, background-color 0.2s;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
 }
 
 .scroll-to-top-btn.show {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
 }
 
 .scroll-to-top-btn.hide {
     opacity: 0;
-    transform: translateX(100px);
+    transform: translateY(12px);
 }
 
 .scroll-to-top-btn:hover {
@@ -171,30 +156,64 @@ section.contact {
     color: #FFA726;
 }
 
-/* Language selector styling */
-.language-selector {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-    color: #fff;
+/* Hero background — solid pitch black */
+.hero {
+    position: relative;
+    min-height: 360px;
+    overflow: hidden;
+
+    /* full-bleed horizontally while preserving centered container height */
+    width: 100vw;
+    margin-left: calc((100% - 100vw) / 2);
+    background: #000000; /* pitch black */
 }
 
-.site-header .nav .language-selector a {
-    color: #fff;
-    text-decoration: none;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-weight: 600;
-    transition: background-color .2s, color .2s;
+/* actual image element (covers area) */
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: auto;            /* let width grow to preserve aspect */
+    min-width: 1920px;     /* ensure at least 1920px wide (covers 1920px monitors) */
+    object-fit: cover;
+    object-position: left center; /* keep left fully visible */
+    display: block;
+    z-index: 0;
+
+    /* semi-transparent */
+    opacity: 0.65;
+    -webkit-mask-image: none;
+    mask-image: none;
 }
 
-.language-selector a:hover,
-.language-selector a:focus {
-    background: rgba(255,255,255,0.1);
-    outline: none;
+/* Ensure hero background fills full viewport width even when element also has .container */
+.hero.container {
+    width: 100vw;
+    max-width: none; /* override .container max-width */
+    margin-left: calc((100% - 100vw) / 2);
+    padding-left: 0;  /* remove container horizontal padding so background touches edges */
+    padding-right: 0;
 }
 
-/* Small screens: stack nav links */
+/* keep content inside hero centered and constrained like the usual .container */
+.hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 20px; /* restore inner spacing */
+}
+
+/* responsive fallback: on small screens let the image scale normally */
+@media (max-width: 1366px) {
+    .hero-bg {
+        min-width: 100%;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+/* Responsive tweaks */
 @media (max-width: 600px) {
     .site-header .nav {
         flex-wrap: wrap;
@@ -206,24 +225,21 @@ section.contact {
         order: -1;
         width: 100%;
         justify-content: center;
-        margin-bottom: 10px;
-    }
-
-    img {
-        width: 45%;
+        margin-bottom: 8px;
     }
 }
 
-@media (max-width: 768px) {
-    header.hero h1 {
-        font-size: 2rem;
-    }
+/* ensure section text is legible on light backgrounds */
+section, .hero-content {
+    color: #fff;
+}
 
-    header.hero p {
-        font-size: 1rem;
-    }
+/* keep header links visible */
+.site-header .nav a {
+    color: #fff;
+}
 
-    .btn {
-        padding: 0.5rem 1rem;
-    }
+/* block under hero: dark blue */
+#about {
+    background: #001f3f; /* dark blue */
 }
